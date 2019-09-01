@@ -6,7 +6,7 @@ client.on('ready', () => {
 });
 
 @client.event
-async def on_message(message) : if(!message.author.user.bot) return;
+async def on_message(message) : if message.author.bot: return
 client.on('message', message => {
     if (message.content.toLowerCase().includes ('ping')) { 
     	message.reply('BERISIK ANJING');
