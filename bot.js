@@ -5,10 +5,9 @@ client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
 
-@client.event
-async def on_message(message) : if message.author.bot: return
 client.on('message', message => {
-    if (message.content.toLowerCase().includes ('ping')) { 
+    if message.author.bot: return;
+    else if (message.content.toLowerCase().includes ('ping')) { 
     	message.reply('BERISIK ANJING');
   	}
     else if (message.content.toLowerCase().includes ('asu') || ('asw')) {
