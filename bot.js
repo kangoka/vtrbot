@@ -6,7 +6,7 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    if (message.content === 'ping'.toLowerCase()) {
+    if (message.content.toLowerCase() === 'ping') {
     	message.reply('PANG PING PANG PING MATAMU COK');
   	}
 });
