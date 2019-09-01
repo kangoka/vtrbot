@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
-    bot.user.SetGame('TITIT')
+    client.user.SetGame('TITIT')
 });
 
 client.on('message', message => {
