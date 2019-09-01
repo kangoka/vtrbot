@@ -43,13 +43,13 @@ client.on('message', message => {
 
 client.on('message', message => {
     if (message.content === 'kentod' || message.content === 'Kentod' || message.content === 'KENTOD') {
-    	message.reply('MANGGIL LU TOD <@267473212626042882>');
+    	message.reply('MANGGIL LU TOD ');
   	}
 });
 
 client.on('message', message => {
     if (message.content === 'nigg' || message.content === 'Nigg') || message.content === 'NIGG' || message.content === 'nigger' || message.content === 'Nigger' || message.content === 'NIGGER' || message.content === 'nigga' || message.content === 'Nigga' || message.content === 'NIGGA' {
-    	message.reply('GABOLEH RASIS ANJING, YA GAK <@267473212626042882>? ');
+    	message.reply('GABOLEH RASIS ANJING, YA GAK? ');
   	}
 });
 
