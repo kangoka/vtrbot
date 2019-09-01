@@ -6,8 +6,7 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    if (message.author.bot: return);
-    else if (message.content.toLowerCase().includes ('ping')) { 
+    if (message.content.toLowerCase().includes ('ping')) { 
     	message.reply('BERISIK ANJING');
   	}
     else if (message.content.toLowerCase().includes ('asu') || ('asw')) {
