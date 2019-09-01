@@ -9,7 +9,9 @@ client.on('message', message => {
     if (message.content === 'ping') {
     	message.reply('PANG PING PANG PING MATAMU COK');
   	}
-    
+    if (message.content == 'asu','bajingan','kontol') {
+        message.reply('KOK KASAR NJING?');
+    }
 });
 
 // THIS  MUST  BE  THIS  WAY
