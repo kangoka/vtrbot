@@ -47,5 +47,11 @@ client.on('message', message => {
   	}
 });
 
+client.on('message', message => {
+    if (message.content === 'tes' || message.content === 'tos') {
+    	message.reply('TAS TES TAS TES LU KIRA MIC NJING');
+  	}
+});
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
