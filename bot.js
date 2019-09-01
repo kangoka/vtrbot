@@ -12,7 +12,7 @@ client.on('message', message => {
 });
 
 client.on('message', message => {
-    if (message.content === 'asu' || 'kontol') {
+    if (message.content === 'asu') {
     	message.reply('KOK KASAR NJING?');
   	}
 });
