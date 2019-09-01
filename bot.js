@@ -3,14 +3,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
-        bot.user.setStatus('available')
-    bot.user.setPresence({
-        game: {
-            name: 'with depression',
-            type: "STREAMING",
-            url: "https://www.twitch.tv/monstercat"
-        }
-    });
+    client.user.setActivity("Titit"); 
 });
 
 client.on('message', message => {
