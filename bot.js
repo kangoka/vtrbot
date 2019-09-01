@@ -6,7 +6,9 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    if (message.author.bot) return;
+    if (message.author.id !== bot.user.id && message.content){ 
+        message.channel.sendMessage(message.content);
+    }
 
     if (message.content.toLowerCase().includes ('ping') || ('peng')) { 
     	message.reply('BERISIK ANJING');
