@@ -1,15 +1,20 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const Commando = require('discord.js-commando');
+const bot = new Commando.Client();
+
+bot.on('message', (message) => {
+     if (message.author.id !== bot.user.id && message.content){ 
+        message.channel.sendMessage(message.content);
+    }
+
+})
 
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
 
 client.on('message', message => {
-    if (message.author.id !== bot.user.id && message.content){ 
-        message.channel.sendMessage(message.content);
-    }
-
     if (message.content.toLowerCase().includes ('ping') || ('peng')) { 
     	message.reply('BERISIK ANJING');
   	}
