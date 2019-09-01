@@ -1,14 +1,15 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
+const command = args.shift().toLowerCase();
 
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
  
 client.on('message', (message) => {
-    if (!msg.author.bot) {
-        return;
-    }    
+    if (message.author.bot) return;
+    
     if (message.content.toLowerCase().includes ('ping') || ('peng')) { 
     	message.reply('BERISIK ANJING');
   	}
