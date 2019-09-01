@@ -10,5 +10,6 @@ client.on('message', message => {
     	message.reply('PANG PING PANG PING MATAMU COK');
   	}
 });
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
