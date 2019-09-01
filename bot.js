@@ -9,7 +9,7 @@ client.on('message', message => {
     if (message.content.toLowerCase().includes ('ping')) { 
     	message.reply('BERISIK ANJING');
   	}
-    else if (message.content.toLowerCase().includes ('asu')) {
+    else if (message.content.toLowerCase().includes ('asu') || ('asw')) {
     	message.reply('MUKELU KEK ANJING');
   	}
     else if (message.content.toLowerCase() === 'ngentot' || message.content.toLowerCase() === 'ngentod') {
