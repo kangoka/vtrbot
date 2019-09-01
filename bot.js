@@ -6,7 +6,7 @@ const bot = new Commando.Client();
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
-
+ 
 bot.on('message', (message) => {
     if (message.author.id !== bot.user.id && message.content){ 
         message.channel.sendMessage(message.content);
