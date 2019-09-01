@@ -1,12 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-function forceLower(message.content) 
-{
-message.content=message.content.toLowerCase();
-}
-
-
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
