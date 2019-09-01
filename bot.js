@@ -6,7 +6,7 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    if (message.includes.toLowerCase('ping')) {
+    if (message.includes('ping')) {
     	message.reply('PANG PING PANG PING MATAMU COK');
   	}
     else if (message.content.toLowerCase() === 'asu' || message.content.toLowerCase() === 'asw' || message.content.toLowerCase() === 'ajg' || message.content.toLowerCase() === 'anjing') {
