@@ -33,6 +33,15 @@ client.on('message', message => {
     else if (message.content.toLowerCase() === 'nigga' || message.content.toLowerCase() === 'nigg' || message.content.toLowerCase() === 'nigger') {
     	message.reply('GABOLEH RASIS ANJING, YA GAK <@267473212626042882>');
   	}
+    else if (message.content.toLowerCase() === 'aldo' || message.content.toLowerCase() === 'aldog') {
+    	message.reply('ANJING');
+  	}
+    else if (message.content.toLowerCase() === 'dipo') {
+    	message.reply('CLOUD SERVICE');
+  	}
+    else if (message.content.toLowerCase() === 'fuck') {
+    	message.reply('AHHH... YAMETE KUDASAIIII');
+  	}
 });
 
 // THIS  MUST  BE  THIS  WAY
