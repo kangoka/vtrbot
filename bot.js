@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-client.user.setGame("TITIT");
 
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
+client.user.setGame("TITIT");
 
 client.on('message', message => {
     if (message.content.toLowerCase() === 'ping') {
