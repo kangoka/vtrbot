@@ -5,6 +5,13 @@ client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
 
+@client.event
+async def on_message(message):
+    # we do not want the bot to reply to itself
+    if message.author == client.user:
+        return
+    if message.author.bot: return
+
 client.on('message', message => {
     if (message.content.toLowerCase().includes ('ping')) { 
     	message.reply('BERISIK ANJING');
