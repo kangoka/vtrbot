@@ -5,7 +5,7 @@ client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
 
-client.on('message'.toLower(), message => {
+client.on('message', message => {
     if (message.content.includes ('ping')) {
     	message.reply('PANG PING PANG PING MATAMU COK');
   	}
