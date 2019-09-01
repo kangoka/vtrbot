@@ -6,10 +6,10 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-    if (message.content.toLowerCase().includes ('ping' || 'peng')) {
+    if (message.content.toLowerCase().includes ('ping')) {
     	message.reply('BERISIK ANJING');
   	}
-    else if (message.content.toLowerCase() === 'asu' || message.content.toLowerCase() === 'asw' || message.content.toLowerCase() === 'ajg' || message.content.toLowerCase() === 'anjing') {
+    else if (message.content.toLowerCase().includes ('asu')) || message.content.toLowerCase().includes ('asw')) || message.content.toLowerCase().includes ('ajg')) || message.content.toLowerCase().includes ('anjing'))) {
     	message.reply('MUKELU KEK ANJING');
   	}
     else if (message.content.toLowerCase() === 'ngentot' || message.content.toLowerCase() === 'ngentod') {
