@@ -11,5 +11,10 @@ client.on('message', message => {
   	}
 });
 
+function forceLower(message.content) 
+{
+message.content=message.content.toLowerCase();
+}
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
