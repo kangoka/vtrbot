@@ -5,7 +5,7 @@ client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
  
-client.on('message', (message) => {
+client.on('message', async message => {
     if (message.author.bot) return;
     
     if (message.content.toLowerCase().includes ('ping') || ('peng')) { 
