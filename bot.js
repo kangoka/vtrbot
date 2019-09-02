@@ -7,6 +7,8 @@ client.on('ready', () => {
   
 
 client.on('message', async message => {
+    if(message.author.id === client.user.id) return;
+    
     if (message.content.toLowerCase().includes ('ping') || ('peng')) { 
     	message.reply('BERISIK ANJING');
   	} else if (message.content.toLowerCase().includes ('asu') || ('asw')) {
