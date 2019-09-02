@@ -11,8 +11,9 @@ client.on('message', async message => {
     if(message.author.id === client.user.id) return;
     
     if(/good job/i.test(message.content)) {
-      message.channel.send('Good job everyone :smirk:'); 
+      message.channel.send('Good job everyonee :smirk:'); 
     }
 });
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
