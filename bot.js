@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const args = message.content.trim().split(/\s+/g); 
 
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
@@ -7,13 +8,14 @@ client.on('ready', () => {
   
 
 client.on('message', async message => {
-    if(message.author.id === client.user.id) {}
+    if(message.author.id === client.user.id) return;
     
-    if (message.content.toLowerCase().includes ('ping') || ('peng')) { 
-    	message.reply('BERISIK ANJING');
-  	} else if (message.content.toLowerCase().includes ('asu') || ('asw')) {
-    	    message.reply('MUKELU KEK ASU');
-  	}
+    if(/good job/i.test(message.content)) {
+      message.channel.send('Good job everyone :smirk:'); 
+    }
+    else if(/pong/i.test(message.content)) {
+      message.channel.send('Ping :smirk:'); 
+    }
 });
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
