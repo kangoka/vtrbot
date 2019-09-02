@@ -8,10 +8,8 @@ client.on('ready', () => {
 
 client.on("message", async message => {
   if (message.content.toLowerCase().includes('Dan')){
-    // right that is needed to kill the loop ->
     if(message.author.bot) return; 
     return message.reply('We love you Dan!');
-    // could also use -> message.channel.send("We love you Dan!")
   } 
 }
 
