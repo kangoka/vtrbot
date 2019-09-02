@@ -6,7 +6,7 @@ client.on('ready', () => {
 });
   
 
-client.on("message", async message => {
+client.on('message', async message => {
   if (message.content.toLowerCase().includes('Dan')){
     if(message.author.bot) return; 
     return message.reply('We love you Dan!');
