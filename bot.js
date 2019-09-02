@@ -4,7 +4,7 @@ const client = new Discord.Client();
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
- 
+  
 
 client.on("message", async message => {
   if (message.content.toLowerCase().includes('Dan')){
