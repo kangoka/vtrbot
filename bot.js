@@ -5,7 +5,7 @@ const args = message.content.trim().split(/\s+/g);
 client.on('ready', () => {
     console.log('TOD BOT IS HERE NJING');
 });
-  
+
 
 client.on('message', async message => {
     if(message.author.id === client.user.id) return;
