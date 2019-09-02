@@ -13,9 +13,6 @@ client.on('message', async message => {
     if(/good job/i.test(message.content)) {
       message.channel.send('Good job everyone :smirk:'); 
     }
-    else if(/pong/i.test(message.content)) {
-      message.channel.send('Ping :smirk:'); 
-    }
 });
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
