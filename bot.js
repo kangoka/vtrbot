@@ -3,7 +3,9 @@ const client = new Discord.Client();
 
 client.on("ready", async() => {
     console.log('TOD BOT IS HERE NJING');
-    client.user.setActivity("Cokil");
+    client.user.setActivity('YouTube', { type: 'WATCHING' })
+  .then(presence => console.log(`Activity set to ${presence.game ? presence.game.name : 'none'}`))
+  .catch(console.error);
 });
 
 
