@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.on('ready', () => {
+client.on("ready", async() => {
     console.log('TOD BOT IS HERE NJING');
+    client.user.setActivity("Cokil");
 });
 
 
