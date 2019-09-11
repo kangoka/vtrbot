@@ -7,7 +7,7 @@ client.on("ready", async() => {
   .then(presence => console.log(`Activity set to ${presence.game ? presence.game.name : 'none'}`))
   .catch(console.error);
 });
-
+  
 
 client.on('message', async message => {
     if (message.author.bot) return;
