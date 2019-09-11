@@ -12,7 +12,7 @@ client.on("ready", async() => {
 client.on('message', async message => {
     if (message.author.bot) return;
     
-    if (message.content.toLowerCase().includes == ('ping') || ('peng')) { 
+    if (message.content.toLowerCase().includes === ('ping') || ('peng')) { 
     	message.reply('BERISIK ANJING');
   	} else if (message.content.toLowerCase().includes === ('asu') || ('asw')) {
     	    message.reply('MUKELU KEK ASU');
