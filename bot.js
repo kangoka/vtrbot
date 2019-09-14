@@ -8,7 +8,7 @@ client.on("ready", async() => {
   .catch(console.error);
 });
   
-
+  
 client.on('message', async message => {
     if (message.author.bot) return;
     
