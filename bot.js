@@ -10,7 +10,9 @@ client.on("ready", async() => {
   
   
 client.on('message', async message => {
-    if (message.author.bot) return;
+    if (message.author.bot) {
+        return;
+    }
     
     if (message.content.toLowerCase() === ('ping') || ('peng')) { 
     	message.reply('BERISIK ANJING');
