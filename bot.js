@@ -1,52 +1,60 @@
-const Discord = require('discord.js');
+// Load up the discord.js library
+const Discord = require("discord.js");
+
+// This is your client. Some people call it `bot`, some people call it `self`, 
+// some might call it `cootchie`. Either way, when you see `client.something`, or `bot.something`,
+// this is what we're refering to. Your client.
 const client = new Discord.Client();
 
-client.on("ready", async() => {
-    console.log('TOD BOT IS HERE NJING');
-    client.user.setActivity('YouTube', { type: 'WATCHING' })
-  .then(presence => console.log(`Activity set to ${presence.game ? presence.game.name : 'none'}`))
-  .catch(console.error);
-});
-  
-  
-client.on('message', async message => {
-    if (message.author.bot) {
-        return;
-    }
-    
-    if (message.content.toLowerCase() === ('ping') || ('peng')) { 
-    	message.reply('BERISIK ANJING');
-  	} else if (message.content.toLowerCase() === ('asu') || ('asw')) {
-    	    message.reply('MUKELU KEK ASU');
-  	} else if (message.content.toLowerCase() === ('ajg') || ('anjing') || ('anjeng')) {
-    	    message.reply('MUKELU KEK ANJING');
-  	} else if (message.content.toLowerCase() === ('ngentot') || ('ngentod') || ('ngntd')) {
-    	    message.reply('NGENTAT NGENTOT, BOCIL MASIH COKIL AE KASAR BET ANJING');
-  	} else if (message.content.toLowerCase() ('bgst') === || ('bangsat')) {
-    	    message.reply('HEH ANJING KASAR BANGET NGENTOT');
-  	} else if (message.content.toLowerCase() === ('lonte')) {
-    	    message.reply('LONTE? MUKAMU KEK LONTE');
-  	} else if (message.content.toLowerCase() === ('kontol') || ('kntl')) {
-    	    message.reply('KONTOLMU BELOK');
-  	} else if (message.content.toLowerCase() === ('memek') || ('kemem') || ('mmk') || ('mmq') || ('memeq') || ('memex')) {
-            message.reply('MEMEK MU TEMBEM');
-  	} else if (message.content.toLowerCase()=== ('kentod') || ('kentot') || ('netnot')) {
-        	message.reply('MANGGIL LU TOD <@267473212626042882>');
-  	} else if (message.content.toLowerCase() ('nigga') === || ('nigger') || ('nigg') || ('niggward')) {
-    	    message.reply('GABOLEH RASIS ANJING, YA GAK <@267473212626042882>');
-  	} else if (message.content.toLowerCase() === ('aldo') || ('aldog')) {
-        	message.reply('<@292889185252278272> ANJING');
-  	} else if (message.content.toLowerCase() === ('dipo')) {
-    	    message.reply('CLOUD SERVICE');
-  	} else if (message.content.toLowerCase() === ('fuck')) {
-    	    message.reply('AHHH... YAMETE KUDASAIIII');
-  	} else if (message.content.toLowerCase() === ('asshole') || ('ass hole')) {
-    	    message.reply('LOBANG PANTATMU HITAM');
-  	} else if (message.content.toLowerCase() === ('penis') || ('vagina')) {
-        	message.reply('ALAT NGENTIAW ALAMI');
-  	}
+client.on("ready", () => {
+  // This event will run if the bot starts, and logs in, successfully.
+  console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
+  // Example of changing the bot's playing game to something useful. `client.user` is what the
+  // docs refer to as the "ClientUser".
+  client.user.setActivity(`Serving ${client.guilds.size} servers`);
 });
 
+client.on("guildCreate", guild => {
+  // This event triggers when the bot joins a guild.
+  console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+  client.user.setActivity(`Serving ${client.guilds.size} servers`);
+});
 
+client.on("guildDelete", guild => {
+  // this event triggers when the bot is removed from a guild.
+  console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+  client.user.setActivity(`Serving ${client.guilds.size} servers`);
+});
+
+client.on("message", async message => {
+  // This event will run on every single message received, from any channel or DM.
+  
+  // It's good practice to ignore other bots. This also makes your bot ignore itself
+  // and not get into a spam loop (we call that "botception").
+  if(message.author.bot) return;
+  
+  // Here we separate our "command" name, and our "arguments" for the command. 
+  // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
+  // command = say
+  // args = ["Is", "this", "the", "real", "life?"]
+  const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  
+  // Let's go with a few common example commands! Feel free to delete or change those.
+  
+  if(command === "ping" || "peng") {
+    // Calculates ping between sending a message and editing it, giving a nice round-trip latency.
+    // The second ping is an average latency between the bot and the websocket server (one-way, not round-trip)
+    const m = await message.channel.send("Ping?");
+    m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+  }
+
+if(command === "asu" || "asw") {
+    // Calculates ping between sending a message and editing it, giving a nice round-trip latency.
+    // The second ping is an average latency between the bot and the websocket server (one-way, not round-trip)
+    const m = await message.channel.send("Ping?");
+    m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
+  }
+ 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
