@@ -8,7 +8,7 @@ const client = new Discord.Client();
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
  * received from Discord
  */
-client.on("message", async message => {
+client.on('message', async message => {
     if (message.author.bot) return;
     
     if (message.content.toLowerCase().includes "ping" || "peng") { 
