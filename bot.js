@@ -6,6 +6,13 @@ client.on('ready', () => {
   client.user.setActivity("Porn", { type: "WATCHING"});
 });
 
+//Fungsi
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 // Pantau chat
 client.on('message', msg => {
   if (msg.content.includes ("ping")) {
@@ -64,6 +71,21 @@ client.on('message', msg => {
   }
   else if(msg.isMemberMentioned(client.user)) {
     msg.channel.send('APA NJING?');
+  }
+  else if (msg.content.toLowerCase().startsWith("!coinflip")) {
+		var msg2 = Array(2);
+		msg2[1] = "Heads";
+	    msg2[2] = "Tails";
+        var x = getRandomInt(1, 8);
+		if (x < 4){
+			msg.channel.sendMessage(msg2[1]);
+		}
+		else{
+			msg.channel.sendMessage(msg2[2]);
+		}
+  }
+  else if (msg.content.toLowerCase().startsWith("!random")) {
+    msg.channel.sendMessage(getRandomInt(1, 10));
   }
 });
 
