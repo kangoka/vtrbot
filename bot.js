@@ -75,17 +75,17 @@ client.on('message', msg => {
   else if (msg.content.toLowerCase().startsWith("!coinflip")) {
 		var msg2 = Array(2);
 		msg2[1] = "Heads";
-	    msg2[2] = "Tails";
+	    	msg2[2] = "Tails";
         var x = getRandomInt(1, 8);
 		if (x < 4){
-			msg.channel.sendMessage(msg2[1]);
+			msg.channel.send(msg2[1]);
 		}
 		else{
-			msg.channel.sendMessage(msg2[2]);
+			msg.channel.send(msg2[2]);
 		}
   }
   else if (msg.content.toLowerCase().startsWith("!random")) {
-    msg.channel.sendMessage(getRandomInt(1, 10));
+    msg.channel.send(getRandomInt(1, 10));
   }
 });
 
