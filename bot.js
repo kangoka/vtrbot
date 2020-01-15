@@ -33,7 +33,7 @@ client.on('message', msg => {
     msg.reply('KONTOLMU CURVED');
   }
   else if (msg.content.includes ("memek") || msg.content.includes ("kemem") || msg.content.includes ("mmk") || msg.content.includes ("mmq") || msg.content.includes ("memeq") || msg.content.includes ("memex")) {
-    msg.reply('NGENTAT NGENTOT, BOCIL MASIH COKIL AE KASAR BET ANJING');
+    msg.reply('MEMEK TEMBEM KEK KUE APEM');
   }
   else if (msg.content.includes ("kentod") || msg.content.includes ("kentot") || msg.content.includes ("netnot")) {
     msg.reply('MANGGIL LU TOD <@267473212626042882>');
