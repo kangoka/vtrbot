@@ -62,6 +62,9 @@ client.on('message', msg => {
   else if (msg.content.includes ("babi")) {
     msg.channel.send('<@216802455734845442>');
   }
+  else if(msg.isMemberMentioned(client.user)) {
+    msg.channel.send('APA NJING?');
+  }
 });
 
 //Pantau apa ada member masuk
