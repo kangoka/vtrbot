@@ -15,6 +15,7 @@ function getRandomInt(min, max) {
 
 // Pantau chat
 client.on('message', msg => {
+  if (msg.author.id === client.user.id || msg.author.bot) return;
   if (msg.content.includes ("ping")) {
     msg.reply('BERISIK ANJING');
   }
@@ -86,6 +87,9 @@ client.on('message', msg => {
   }
   else if (msg.content.toLowerCase().startsWith("!random")) {
     msg.channel.send(getRandomInt(1, 10));
+  }
+  else if(msg.isMentioned("208849229903298560")){
+    msg.channel.send('<@208849229903298560> DICARIIN TUH');
   }
 });
 
