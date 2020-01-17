@@ -58,7 +58,7 @@ client.on('message', msg => {
     msg.reply('LOBANG PANTATMU HITAM');
   }
   else if (msg.content.includes ("oka")) {
-    msg.reply('MOST ADORABLE MAN IN THE WORLD :heart:');
+    msg.channel.send('MOST ADORABLE MAN IN THE WORLD :heart:');
   }
   else if (msg.content.includes ("wtf")) {
     msg.reply('WHAT THE FROG?');
