@@ -93,6 +93,7 @@ client.on('message', msg => {
   }
   else if(msg.content.includes ("bapau") || msg.content.includes ("bapao") || msg.content.includes ("BAPAO")){
     msg.channel.send('EX <@216802455734845442>');
+  }
 });
 
 //Pantau apa ada member masuk
