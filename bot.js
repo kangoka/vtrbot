@@ -91,7 +91,7 @@ client.on('message', msg => {
   else if(msg.isMentioned("208849229903298560")){
     msg.channel.send('<@208849229903298560> DICARIIN TUH');
   }
-  else if(msg.content.includes ("bapau") || msg.content.includes ("bapao")){
+  else if(msg.content.includes ("bapau") || msg.content.includes ("bapao") || msg.content.includes ("BAPAO")){
     msg.channel.send('EX <@216802455734845442>');
 });
 
