@@ -104,5 +104,113 @@ client.on('guildMemberAdd', member => {
   channel.send(`HALO NJING ${member} MET DATANG DI VENTUROUS, GA USAH TERLALU KAKU YA TOD, SANTAI AJA HEHE.`);
 });
 
+//Polling System
+client.on('message', async message => {
+    if(message.author.bot) return;
+    if(message.content.toLowerCase() === '!cp') {
+        if(userCreatedPolls.has(message.author.id)) {
+            message.channel.send("MASIH ADA POLLING NJING");
+            return;
+        }
+        message.channel.send("MASUKIN OPSINYA NJING, MAKSIMAL 5 YA TOD");
+        let filter = m => {
+            if(m.author.id === message.author.id) {
+                if(m.content.toLowerCase() === 'dah') collector.stop();
+                else return true;
+            }
+            else return false;
+        }
+        let collector = message.channel.createMessageCollector(filter, { maxMatches: 5 });
+        let pollOptions = await getPollOptions(collector);
+        if(pollOptions.length < 2) {
+            message.channel.send("KALO POLLING MINIMAL ADA 2 OPSI GOBLOK");
+            return;
+        }
+        let embed = new discord.RichEmbed();
+        embed.setTitle("LIST PILIHAN");
+        embed.setDescription(pollOptions.join("\n"));
+        let confirm = await message.channel.send(embed);
+        
+        await confirm.react('✅');
+        await confirm.react('❎');
+
+        let reactionFilter = (reaction, user) => (user.id === message.author.id) && !user.bot;
+        let reaction = (await confirm.awaitReactions(reactionFilter, { max: 1 })).first();
+        if(reaction.emoji.name === '✅') {
+            message.channel.send("POLLING BAKAL DIMULAI 1 DETIK LAGI NJING");
+            await delay(1000);
+            message.channel.send("VOTE SEKARANG TOD!");
+            let userVotes = new Map();
+            let pollTally = new discord.Collection(pollOptions.map(o => [o, 0]));
+            let pollFilter = m => !m.bot;
+            let voteCollector = message.channel.createMessageCollector(pollFilter, {
+                time: 10000
+            });
+            userCreatedPolls.set(message.author.id, voteCollector);
+            await processPollResults(voteCollector, pollOptions, userVotes, pollTally);
+            let max = Math.max(...pollTally.array());
+            console.log(pollTally.entries());
+            let entries = [...pollTally.entries()];
+            let winners = [];
+            let embed = new discord.RichEmbed();
+            let desc = '';
+            entries.forEach(entry => entry[1] === max ? winners.push(entry[0]) : null);
+            entries.forEach(entry => desc  += entry[0] + " MENERIMA " + entry[1] + " VOTE\n");
+            embed.setDescription(desc);
+
+            if(winners.length === 1) {
+                message.channel.send(winners[0] + " YANG MENANG NJING", embed);
+            }
+            else {
+                message.channel.send("LAH KOK SERI ANJING", embed);
+            }
+        }   
+        else if(reaction.emoji.name === '❎') {
+            message.channel.send("POLL DIBATALIN NJING");
+        }
+    }
+    else if(message.content.toLowerCase() === '!stopvote') {
+        if(userCreatedPolls.has(message.author.id)) {
+            msg.channel.send('OTW NJING');
+            userCreatedPolls.get(message.author.id).stop();
+            userCreatedPolls.delete(message.author.id);
+        }
+        else {
+            message.channel.send("APANYA YANG DI STOP NJING? KAN LAGI GAK ADA VOTE");
+        }
+    }
+});
+
+function processPollResults(voteCollector, pollOptions, userVotes, pollTally) {
+    return new Promise((resolve, reject) => {
+        voteCollector.on('collect', msg => {
+            let option = msg.content.toLowerCase();
+            if(!userVotes.has(msg.author.id) && pollOptions.includes(option)) {
+                userVotes.set(msg.author.id, msg.content);
+                let voteCount = pollTally.get(option);
+                pollTally.set(option, ++voteCount);
+            }
+        });
+        voteCollector.on('end', collected => {
+            console.log("Collected " + collected.size + " votes.");
+            resolve(collected);
+        })
+    });
+}
+
+function getPollOptions(collector) {
+    return new Promise((resolve, reject) => {
+        collector.on('end', collected => resolve(collected.map(m => m.content.toLowerCase())));
+    });
+}
+
+function delay(time) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve();
+        }, time)
+    })
+}
+
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
