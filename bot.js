@@ -1,5 +1,6 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
+const discord = require('discord.js');
+const client = new discord.Client();
+const userCreatedPolls = new Map();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
