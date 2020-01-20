@@ -172,7 +172,7 @@ client.on('message', async message => {
     }
     else if(message.content.toLowerCase() === '!stopvote') {
         if(userCreatedPolls.has(message.author.id)) {
-            msg.channel.send('OTW NJING');
+            message.channel.send('OTW NJING');
             userCreatedPolls.get(message.author.id).stop();
             userCreatedPolls.delete(message.author.id);
         }
