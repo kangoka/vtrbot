@@ -104,10 +104,9 @@ client.on('guildMemberAdd', member => {
   // Send the message, mentioning the member
   channel.send(`HALO NJING ${member} MET DATANG DI VENTUROUS, GA USAH TERLALU KAKU YA TOD, SANTAI AJA HEHE.`);
 });
-
+//Polling System
 client.on('message', async message => {
     if(message.author.bot) return;
-    //Polling System
     if(message.content.toLowerCase() === '!cp') {
         if(userCreatedPolls.has(message.author.id)) {
             message.channel.send("MASIH ADA POLLING NJING");
@@ -212,7 +211,11 @@ function delay(time) {
         }, time)
     })
 }
-else if(message.content.toLowerCase() === '!rv') {
+
+//Voting System
+client.on('message', async message => {
+    if(message.author.bot) return;
+    if(message.content.toLowerCase() === '!rv') {
         if(userCreatedVote.has(message.author.id)) {
             message.channel.send("MASIH ADA VOTE NJING");
             return;
