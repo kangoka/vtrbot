@@ -105,9 +105,9 @@ client.on('guildMemberAdd', member => {
   channel.send(`HALO NJING ${member} MET DATANG DI VENTUROUS, GA USAH TERLALU KAKU YA TOD, SANTAI AJA HEHE.`);
 });
 
-//Polling System
 client.on('message', async message => {
     if(message.author.bot) return;
+    //Polling System
     if(message.content.toLowerCase() === '!cp') {
         if(userCreatedPolls.has(message.author.id)) {
             message.channel.send("MASIH ADA POLLING NJING");
@@ -170,7 +170,7 @@ client.on('message', async message => {
             message.channel.send("POLL DIBATALIN NJING");
         }
     }
-    else if(message.content.toLowerCase() === '!stopvote') {
+    else if(message.content.toLowerCase() === '!stoppoll') {
         if(userCreatedPolls.has(message.author.id)) {
             message.channel.send('OTW NJING');
             userCreatedPolls.get(message.author.id).stop();
@@ -212,6 +212,100 @@ function delay(time) {
         }, time)
     })
 }
+else if(message.content.toLowerCase() === '!rv') {
+        if(userCreatedVote.has(message.author.id)) {
+            message.channel.send("MASIH ADA VOTE NJING");
+            return;
+        }
+        message.channel.send("MASUKIN OPSINYA NJING, MAKSIMAL 5 YA TOD");
+        let filter = m => {
+            if(m.author.id === message.author.id) {
+                if(m.content.toLowerCase() === 'acak') collector.stop();
+                else return true;
+            }
+            else return false;
+        }
+        let collector = message.channel.createMessageCollector(filter, { maxMatches: 5 });
+        let voteOptions = await getVoteOptions(collector);
+        if(voteOptions.length < 2) {
+            message.channel.send("KALO VOTING MINIMAL ADA 2 OPSI GOBLOK");
+            return;
+        }
+        let embed = new discord.RichEmbed();
+        embed.setTitle("LIST NYA");
+        embed.setDescription(voteOptions.join("\n"));
+        let confirm = await message.channel.send(embed);
+        
+        await confirm.react('✅');
+        await confirm.react('❎');
+
+        let reactionFilter = (reaction, user) => (user.id === message.author.id) && !user.bot;
+        let reaction = (await confirm.awaitReactions(reactionFilter, { max: 1 })).first();
+        if(reaction.emoji.name === '✅') {
+            message.channel.send("VOTING BAKAL DIACAK 2 DETIK LAGI NJING");
+            await delay(2000);
+            message.channel.send("LAGI DIACAK NJING");
+            let userVotes = new Map();
+            let voteTally = new discord.Collection(voteOptions.map(o => [o, 0]));
+            let pollFilter = m => !m.bot;
+            let voteCollector = message.channel.createMessageCollector(pollFilter, {
+                time: 3000
+            });
+            userCreatedVote.set(message.author.id, voteCollector);
+            await processPollResults(voteCollector, voteOptions, userVotes, voteTally);
+            let embed = new discord.RichEmbed();
+            let desc = '';
+            embed.setDescription(desc);
+            var x = getRandomInt(1, 5);
+            while(voteOptions.length < x){
+               x = getRandomInt(1, 5)
+            }message.channel.send("Hasilnya: " + voteOptions[x-1]);
+        }   
+        else if(reaction.emoji.name === '❎') {
+            message.channel.send("VOTE DIBATALIN NJING");
+        }
+    }
+    else if(message.content.toLowerCase() === '!stopvote') {
+        if(userCreatedVote.has(message.author.id)) {
+            message.channel.send('OTW NJING');
+            userCreatedVote.get(message.author.id).stop();
+            userCreatedVote.delete(message.author.id);
+        }
+        else {
+            message.channel.send("APANYA YANG DI STOP NJING? KAN LAGI GAK ADA VOTE");
+        }
+    }
+});
+
+function processPollResults(voteCollector, voteOptions, userVotes, voteTally) {
+    return new Promise((resolve, reject) => {
+        voteCollector.on('collect', msg => {
+            let option = msg.content.toLowerCase();
+            if(!userVotes.has(msg.author.id) && voteOptions.includes(option)) {
+                userVotes.set(msg.author.id, msg.content);
+                let voteCount = voteTally.get(option);
+                voteTally.set(option, ++voteCount);
+            }
+        });
+        voteCollector.on('end', collected => {
+            resolve(collected);
+        })
+    });
+}
+
+function getVoteOptions(collector) {
+    return new Promise((resolve, reject) => {
+        collector.on('end', collected => resolve(collected.map(m => m.content)));
+    });
+}
+
+function delay(time) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve();
+        }, time)
+    })
+}	
 
 // THIS  MUST  BE  THIS  WAY
 client.login(process.env.BOT_TOKEN);
