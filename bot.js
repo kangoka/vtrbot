@@ -1,5 +1,6 @@
 const discord = require('discord.js');
 const client = new discord.Client();
+const userCreatedVote = new Map();
 const userCreatedPolls = new Map();
 
 client.on('ready', () => {
@@ -107,7 +108,70 @@ client.on('guildMemberAdd', member => {
 //Polling System
 client.on('message', async message => {
     if(message.author.bot) return;
-    if(message.content.toLowerCase() === '!cp') {
+    if(message.content.toLowerCase() === '!rv') {
+        if(userCreatedVote.has(message.author.id)) {
+            message.channel.send("MASIH ADA VOTE NJING");
+            return;
+        }
+        message.channel.send("MASUKIN OPSINYA NJING, MAKSIMAL 5 YA TOD");
+        let filter = m => {
+            if(m.author.id === message.author.id) {
+                if(m.content.toLowerCase() === 'acak') collector.stop();
+                else return true;
+            }
+            else return false;
+        }
+        let collector = message.channel.createMessageCollector(filter, { maxMatches: 5 });
+        let voteOptions = await getVoteOptions(collector);
+        if(voteOptions.length < 2) {
+            message.channel.send("KALO VOTING MINIMAL ADA 2 OPSI GOBLOK");
+            return;
+        }
+        let embed = new discord.RichEmbed();
+        embed.setTitle("LIST NYA");
+        embed.setDescription(voteOptions.join("\n"));
+        let confirm = await message.channel.send(embed);
+        
+        await confirm.react('✅');
+        await confirm.react('❎');
+
+        let reactionFilter = (reaction, user) => (user.id === message.author.id) && !user.bot;
+        let reaction = (await confirm.awaitReactions(reactionFilter, { max: 1 })).first();
+        if(reaction.emoji.name === '✅') {
+            message.channel.send("VOTING BAKAL DIACAK 2 DETIK LAGI NJING");
+            await delay(2000);
+            message.channel.send("LAGI DIACAK NJING");
+            let userVotes = new Map();
+            let voteTally = new discord.Collection(voteOptions.map(o => [o, 0]));
+            let voteFilter = m => !m.bot;
+            let voteCollector = message.channel.createMessageCollector(voteFilter, {
+                time: 3000
+            });
+            userCreatedVote.set(message.author.id, voteCollector);
+            await processVoteResults(voteCollector, voteOptions, userVotes, voteTally);
+            let embed = new discord.RichEmbed();
+            let desc = '';
+            embed.setDescription(desc);
+            var x = getRandomInt(1, 5);
+            while(voteOptions.length < x){
+               x = getRandomInt(1, 5)
+            }message.channel.send("Hasilnya: " + voteOptions[x-1]);
+        }   
+        else if(reaction.emoji.name === '❎') {
+            message.channel.send("VOTE DIBATALIN NJING");
+        }
+    }
+    else if(message.content.toLowerCase() === '!stopvote') {
+        if(userCreatedVote.has(message.author.id)) {
+            message.channel.send('OTW NJING');
+            userCreatedVote.get(message.author.id).stop();
+            userCreatedVote.delete(message.author.id);
+        }
+        else {
+            message.channel.send("APANYA YANG DI STOP NJING? KAN LAGI GAK ADA VOTE");
+        }
+    }
+    else if(message.content.toLowerCase() === '!cpoll') {
         if(userCreatedPolls.has(message.author.id)) {
             message.channel.send("MASIH ADA POLLING NJING");
             return;
@@ -115,7 +179,7 @@ client.on('message', async message => {
         message.channel.send("MASUKIN OPSINYA NJING, MAKSIMAL 5 YA TOD");
         let filter = m => {
             if(m.author.id === message.author.id) {
-                if(m.content.toLowerCase() === 'dah') collector.stop();
+                if(m.content.toLowerCase() === 'mulai') collector.stop();
                 else return true;
             }
             else return false;
@@ -129,6 +193,7 @@ client.on('message', async message => {
         let embed = new discord.RichEmbed();
         embed.setTitle("LIST PILIHAN");
         embed.setDescription(pollOptions.join("\n"));
+        console.log(pollOptions[1]);
         let confirm = await message.channel.send(embed);
         
         await confirm.react('✅');
@@ -149,7 +214,6 @@ client.on('message', async message => {
             userCreatedPolls.set(message.author.id, voteCollector);
             await processPollResults(voteCollector, pollOptions, userVotes, pollTally);
             let max = Math.max(...pollTally.array());
-            console.log(pollTally.entries());
             let entries = [...pollTally.entries()];
             let winners = [];
             let embed = new discord.RichEmbed();
@@ -180,6 +244,28 @@ client.on('message', async message => {
         }
     }
 });
+
+function processVoteResults(voteCollector, voteOptions, userVotes, voteTally) {
+    return new Promise((resolve, reject) => {
+        voteCollector.on('collect', msg => {
+            let option = msg.content.toLowerCase();
+            if(!userVotes.has(msg.author.id) && voteOptions.includes(option)) {
+                userVotes.set(msg.author.id, msg.content);
+                let voteCount = voteTally.get(option);
+                voteTally.set(option, ++voteCount);
+            }
+        });
+        voteCollector.on('end', collected => {
+            resolve(collected);
+        })
+    });
+}
+
+function getVoteOptions(collector) {
+    return new Promise((resolve, reject) => {
+        collector.on('end', collected => resolve(collected.map(m => m.content)));
+    });
+}
 
 function processPollResults(voteCollector, pollOptions, userVotes, pollTally) {
     return new Promise((resolve, reject) => {
