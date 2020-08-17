@@ -21,6 +21,7 @@ client.on('message', msg => {
   if (msg.content.includes ("ping")) {
     msg.reply('BERISIK ANJING');
   }
+  /*
   else if (msg.content.includes ("aldo") || msg.content.includes ("aldog")) {
     msg.reply('<@292889185252278272> ANJING');
   }
@@ -75,6 +76,7 @@ client.on('message', msg => {
   else if(msg.isMemberMentioned(client.user)) {
     msg.channel.send('APA NJING?');
   }
+  */
   else if (msg.content.toLowerCase().startsWith("!coinflip")) {
 		var msg2 = Array(2);
 		msg2[1] = "Heads";
@@ -93,9 +95,11 @@ client.on('message', msg => {
   else if(msg.isMentioned("208849229903298560")){
     msg.channel.send('<@208849229903298560> DICARIIN TUH');
   }
+  /*
   else if(msg.content.includes ("bapau") || msg.content.includes ("bapao") || msg.content.includes ("BAPAO")){
     msg.channel.send('EX <@216802455734845442>');
   }
+  */
 });
 
 //Pantau apa ada member masuk
