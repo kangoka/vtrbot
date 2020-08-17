@@ -1,1 +1,1 @@
-worker: node vtr.js
+worker: node vtrbot.js
