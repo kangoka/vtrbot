@@ -18,8 +18,17 @@ function getRandomInt(min, max) {
 // Pantau chat
 client.on('message', msg => {
   if (msg.author.id === client.user.id || msg.author.bot) return;
-  if (msg.content.includes ("ping")) {
-    msg.reply('BERISIK ANJING');
+  if (message.content.toLowerCase() === '!ping) {
+        message.channel.send("Pinging...").then(m =>{
+            var ping = m.createdTimestamp - message.createdTimestamp;
+
+          // Basic embed
+            var embed = new Discord.MessageEmbed()
+            .setAuthor(`Your ping is ${ping}`)
+            .setColor("3066993")
+            
+            m.edit(embed)
+        });
   }
   /*
   else if (msg.content.includes ("aldo") || msg.content.includes ("aldog")) {
