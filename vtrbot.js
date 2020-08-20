@@ -18,7 +18,7 @@ function getRandomInt(min, max) {
 // Pantau chat
 client.on('message', msg => {
   if (msg.author.id === client.user.id || msg.author.bot) return;
-  if (message.content.toLowerCase() === '!ping) {
+  if (msg.content.toLowerCase().startsWith("!ping")) {
         message.channel.send("Pinging...").then(m =>{
             var ping = m.createdTimestamp - message.createdTimestamp;
 
@@ -30,7 +30,7 @@ client.on('message', msg => {
             m.edit(embed)
         });
   }
-  else if (message.content.toLowerCase() === '!uptime) {
+  else if (msg.content.toLowerCase().startsWith("!uptime")) {
       let days = Math.floor(client.uptime / 86400000);
       let hours = Math.floor(client.uptime / 3600000) % 24;
       let minutes = Math.floor(client.uptime / 60000) % 60;
