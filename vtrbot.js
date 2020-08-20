@@ -19,16 +19,31 @@ function getRandomInt(min, max) {
 client.on('message', msg => {
   if (msg.author.id === client.user.id || msg.author.bot) return;
   if (msg.content.toLowerCase().startsWith("!ping")) {
-        message.channel.send("Pinging...").then(m =>{
-            var ping = m.createdTimestamp - message.createdTimestamp;
+        let embed = new discord.RichEmbed();
+        embed.setDescription('Pinging...');
+        msg.channel.send(embed).then(m =>{
 
-          // Basic embed
-            var embed = new Discord.MessageEmbed()
-            .setAuthor(`Your ping is ${ping}`)
-            .setColor("3066993")
-            
-            m.edit(embed)
-        });
+        if (client.ping >= 0 && client.ping <= 80) {
+                embed.setTitle('PING');
+                embed.setColor(3066993);
+                embed.setDescription(client.ping + ' ms');
+                m.edit(embed);
+        }
+        else if (client.ping > 80 && client.ping  <= 170){
+                embed.setTitle('PING');
+                embed.setColor(15105570);
+                embed.setDescription(client.ping + ' ms');
+                m.edit(embed);
+        }
+        else{
+                embed.setTitle('PING');
+                embed.setColor(15158332);
+                embed.setDescription(client.ping + ' ms');
+                m.edit(embed);
+}
+
+        }
+);
   }
   else if (msg.content.toLowerCase().startsWith("!uptime")) {
       let days = Math.floor(client.uptime / 86400000);
@@ -36,7 +51,13 @@ client.on('message', msg => {
       let minutes = Math.floor(client.uptime / 60000) % 60;
       let seconds = Math.floor(client.uptime / 1000) % 60;
 
-      message.channel.send(`__Uptime:__\n${days}d ${hours}h ${minutes}m ${seconds}s`);
+        let embed = new discord.RichEmbed();
+        embed.setTitle('UPTIME');
+        embed.setColor(3066993);
+        embed.setDescription(`${days}h ${hours}j ${minutes}m ${seconds}d`);
+        msg.channel.send(embed);
+
+        
   }
   /*
   else if (msg.content.includes ("aldo") || msg.content.includes ("aldog")) {
@@ -95,16 +116,16 @@ client.on('message', msg => {
   }
   */
   else if (msg.content.toLowerCase().startsWith("!coinflip")) {
-		var msg2 = Array(2);
-		msg2[1] = "Heads";
-	    	msg2[2] = "Tails";
+                var msg2 = Array(2);
+                msg2[1] = "Heads";
+                msg2[2] = "Tails";
         var x = getRandomInt(1, 8);
-		if (x < 4){
-			msg.channel.send(msg2[1]);
-		}
-		else{
-			msg.channel.send(msg2[2]);
-		}
+                if (x < 4){
+                        msg.channel.send(msg2[1]);
+                }
+                else{
+                        msg.channel.send(msg2[2]);
+                }
   }
   else if (msg.content.toLowerCase().startsWith("!random")) {
     msg.channel.send(getRandomInt(1, 10));
@@ -317,7 +338,7 @@ function delay(time) {
             resolve();
         }, time)
     })
-}
+} 
 
 // THIS  MUST  BE  THIS  WAY
-client.login(process.env.BOT_TOKEN);
+client.login(env.BOT_TOKEN);
